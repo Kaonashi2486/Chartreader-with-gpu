@@ -411,3 +411,5 @@ def Ocr(chart_type):
     converted_table = converted_table + "x_axis_title: " + x_axis_title + " "
     converted_table = converted_table + "y_axis_title: " + y_axis_title + " "
     return converted_table
+
+print("successful execution")

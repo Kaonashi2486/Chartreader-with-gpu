@@ -1,0 +1,18 @@
+{"time":"2024-10-13T19:28:30.858823+05:30","level":"INFO","msg":"using version","core version":"0.18.3"}
+{"time":"2024-10-13T19:28:30.858823+05:30","level":"INFO","msg":"created symlink","path":"c:\\Users\\saksh\\OneDrive\\Desktop\\stuffs\\Chartreader-with-gpu\\wandb\\run-20241013_192830-hfesmka8\\logs\\debug-core.log"}
+{"time":"2024-10-13T19:28:30.8943525+05:30","level":"ERROR","msg":"dialing: google: could not find default credentials. See https://cloud.google.com/docs/authentication/external/set-up-adc for more information"}
+{"time":"2024-10-13T19:28:30.9893462+05:30","level":"INFO","msg":"created new stream","id":"hfesmka8"}
+{"time":"2024-10-13T19:28:30.9893462+05:30","level":"INFO","msg":"stream: started","id":"hfesmka8"}
+{"time":"2024-10-13T19:28:30.9893462+05:30","level":"INFO","msg":"handler: started","stream_id":{"value":"hfesmka8"}}
+{"time":"2024-10-13T19:28:30.9893462+05:30","level":"INFO","msg":"writer: Do: started","stream_id":{"value":"hfesmka8"}}
+{"time":"2024-10-13T19:28:30.9923335+05:30","level":"INFO","msg":"sender: started","stream_id":{"value":"hfesmka8"}}
+{"time":"2024-10-13T19:28:31.5324621+05:30","level":"INFO","msg":"wandb-core","!BADKEY":null}
+{"time":"2024-10-13T19:28:31.5378826+05:30","level":"INFO","msg":"Starting system monitor"}
+{"time":"2024-10-13T19:28:32.3067405+05:30","level":"INFO","msg":"stream: closing","id":"hfesmka8"}
+{"time":"2024-10-13T19:28:32.3076612+05:30","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2024-10-13T19:28:32.8460115+05:30","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2024-10-13T19:28:34.1234597+05:30","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2024-10-13T19:28:34.4671439+05:30","level":"INFO","msg":"handler: closed","stream_id":{"value":"hfesmka8"}}
+{"time":"2024-10-13T19:28:34.4671439+05:30","level":"INFO","msg":"writer: Close: closed","stream_id":{"value":"hfesmka8"}}
+{"time":"2024-10-13T19:28:34.4671439+05:30","level":"INFO","msg":"sender: closed","stream_id":{"value":"hfesmka8"}}
+{"time":"2024-10-13T19:28:34.4682997+05:30","level":"INFO","msg":"stream: closed","id":"hfesmka8"}

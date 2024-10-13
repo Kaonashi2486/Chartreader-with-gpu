@@ -1,11 +1,15 @@
 import os
 import numpy as np
 import pickle
+import sys
+# Add the path to your config.py to sys.path
+sys.path.append(r'C:\Users\saksh\OneDrive\Desktop\stuffs\Chartreader-with-gpu\db\datasets')
+from db.datasets import dataset
 
 class Config:
     def __init__(self):
         self._configs = {}
-        self._configs["dataset"] = None
+        self._configs["dataset"] =None
         self._configs["testing_function"] = None
         # Training Config
         self._configs["stepsize"] = 450000

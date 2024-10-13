@@ -1,0 +1,8 @@
+Training args: Namespace(cfg_file='KPDetection', start_iter=0, pretrained_model='KPDetection.pkl', threads=1, cache_path='C:\\Users\\saksh\\OneDrive\\Desktop\\stuffs\\Chartreader-with-gpu\\evaluation copy\\data\\cache', data_dir='C:\\Users\\saksh\\OneDrive\\Desktop\\stuffs\\Chartreader-with-gpu\\evaluation copy\\data')
+Loading all datasets...
+Using 1 threads.
+Traceback (most recent call last):
+  File "C:\Users\saksh\OneDrive\Desktop\stuffs\Chartreader-with-gpu\train_extraction.py", line 240, in <module>
+    training_db = datasets[dataset](split=train_split)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: Chart.__init__() missing 1 required positional argument: 'db_config'

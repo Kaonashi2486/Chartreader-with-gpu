@@ -1,0 +1,14 @@
+Training args: Namespace(cfg_file='KPDetection', start_iter=0, pretrained_model='KPDetection.pkl', threads=1, cache_path='C:\\Users\\saksh\\OneDrive\\Desktop\\stuffs\\Chartreader-with-gpu\\evaluation copy\\data\\cache', data_dir='C:\\Users\\saksh\\OneDrive\\Desktop\\stuffs\\Chartreader-with-gpu\\evaluation copy\\data')
+Loading all datasets...
+Using 1 threads.
+Traceback (most recent call last):
+  File "C:\Users\saksh\OneDrive\Desktop\stuffs\Chartreader-with-gpu\train_extraction.py", line 240, in <module>
+    training_db = datasets[dataset](split=train_split,db_config=system_configs)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\saksh\OneDrive\Desktop\stuffs\Chartreader-with-gpu\db\coco.py", line 27, in __init__
+    super(Chart, self).__init__(db_config)
+  File "C:\Users\saksh\OneDrive\Desktop\stuffs\Chartreader-with-gpu\db\detection.py", line 31, in __init__
+    self.update_config(db_config)
+  File "C:\Users\saksh\OneDrive\Desktop\stuffs\Chartreader-with-gpu\db\base.py", line 61, in update_config
+    for key in new:
+TypeError: 'Config' object is not iterable

@@ -1,0 +1,6 @@
+Training args: Namespace(cfg_file='KPDetection', start_iter=0, pretrained_model='KPDetection.pkl', threads=1, cache_path='./data/cache/', data_dir='./data')
+Traceback (most recent call last):
+  File "c:\Users\saksh\OneDrive\Desktop\stuffs\Chartreader-with-gpu\train_extraction.py", line 199, in <module>
+    file_list_data = os.listdir(args.data_dir)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [WinError 3] The system cannot find the path specified: './data'

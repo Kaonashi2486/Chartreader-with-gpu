@@ -1,0 +1,19 @@
+{"time":"2024-10-13T19:16:39.9327636+05:30","level":"INFO","msg":"using version","core version":"0.18.3"}
+{"time":"2024-10-13T19:16:39.9327636+05:30","level":"INFO","msg":"created symlink","path":"c:\\Users\\saksh\\OneDrive\\Desktop\\stuffs\\Chartreader-with-gpu\\wandb\\run-20241013_191639-fhpn3emp\\logs\\debug-core.log"}
+{"time":"2024-10-13T19:16:39.9557602+05:30","level":"ERROR","msg":"dialing: google: could not find default credentials. See https://cloud.google.com/docs/authentication/external/set-up-adc for more information"}
+{"time":"2024-10-13T19:16:40.4715604+05:30","level":"INFO","msg":"created new stream","id":"fhpn3emp"}
+{"time":"2024-10-13T19:16:40.4715604+05:30","level":"INFO","msg":"stream: started","id":"fhpn3emp"}
+{"time":"2024-10-13T19:16:40.4725747+05:30","level":"INFO","msg":"handler: started","stream_id":{"value":"fhpn3emp"}}
+{"time":"2024-10-13T19:16:40.4725747+05:30","level":"INFO","msg":"writer: Do: started","stream_id":{"value":"fhpn3emp"}}
+{"time":"2024-10-13T19:16:40.4725747+05:30","level":"INFO","msg":"sender: started","stream_id":{"value":"fhpn3emp"}}
+{"time":"2024-10-13T19:16:40.9434976+05:30","level":"INFO","msg":"wandb-core","!BADKEY":null}
+{"time":"2024-10-13T19:16:40.9470435+05:30","level":"INFO","msg":"Starting system monitor"}
+{"time":"2024-10-13T19:16:41.942467+05:30","level":"INFO","msg":"stream: closing","id":"fhpn3emp"}
+{"time":"2024-10-13T19:16:41.942467+05:30","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2024-10-13T19:16:42.3151695+05:30","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2024-10-13T19:16:47.3122476+05:30","level":"ERROR","msg":"monitor: gpu: timeout waiting for process to exit"}
+{"time":"2024-10-13T19:16:48.4611897+05:30","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2024-10-13T19:16:48.8103993+05:30","level":"INFO","msg":"handler: closed","stream_id":{"value":"fhpn3emp"}}
+{"time":"2024-10-13T19:16:48.8103993+05:30","level":"INFO","msg":"writer: Close: closed","stream_id":{"value":"fhpn3emp"}}
+{"time":"2024-10-13T19:16:48.8103993+05:30","level":"INFO","msg":"sender: closed","stream_id":{"value":"fhpn3emp"}}
+{"time":"2024-10-13T19:16:48.8114918+05:30","level":"INFO","msg":"stream: closed","id":"fhpn3emp"}

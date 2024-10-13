@@ -1,0 +1,19 @@
+Training args: Namespace(cfg_file='KPDetection', start_iter=0, pretrained_model='KPDetection.pkl', threads=1, cache_path='C:\\Users\\saksh\\OneDrive\\Desktop\\stuffs\\Chartreader-with-gpu\\evaluation copy\\data\\cache', data_dir='C:\\Users\\saksh\\OneDrive\\Desktop\\stuffs\\Chartreader-with-gpu\\evaluation copy\\data')
+Loading all datasets...
+Using 1 threads.
+Label file: None
+Label file: None
+Traceback (most recent call last):
+  File "C:\Users\saksh\OneDrive\Desktop\stuffs\Chartreader-with-gpu\train_extraction.py", line 244, in <module>
+    train_loader = DataLoader(training_db, batch_size=32, num_workers=threads, shuffle=True)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\saksh\AppData\Local\Programs\Python\Python312\Lib\site-packages\torch\utils\data\dataloader.py", line 351, in __init__
+    sampler = RandomSampler(dataset, generator=generator)  # type: ignore[arg-type]
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\saksh\AppData\Local\Programs\Python\Python312\Lib\site-packages\torch\utils\data\sampler.py", line 143, in __init__
+    if not isinstance(self.num_samples, int) or self.num_samples <= 0:
+                      ^^^^^^^^^^^^^^^^
+  File "C:\Users\saksh\AppData\Local\Programs\Python\Python312\Lib\site-packages\torch\utils\data\sampler.py", line 150, in num_samples
+    return len(self.data_source)
+           ^^^^^^^^^^^^^^^^^^^^^
+TypeError: object of type 'Chart' has no len()

@@ -1,0 +1,18 @@
+{"time":"2024-10-13T20:25:24.2966989+05:30","level":"INFO","msg":"using version","core version":"0.18.3"}
+{"time":"2024-10-13T20:25:24.2966989+05:30","level":"INFO","msg":"created symlink","path":"C:\\Users\\saksh\\OneDrive\\Desktop\\stuffs\\Chartreader-with-gpu\\wandb\\run-20241013_202524-b951bc8e\\logs\\debug-core.log"}
+{"time":"2024-10-13T20:25:24.3299199+05:30","level":"ERROR","msg":"dialing: google: could not find default credentials. See https://cloud.google.com/docs/authentication/external/set-up-adc for more information"}
+{"time":"2024-10-13T20:25:24.4050328+05:30","level":"INFO","msg":"created new stream","id":"b951bc8e"}
+{"time":"2024-10-13T20:25:24.4050328+05:30","level":"INFO","msg":"stream: started","id":"b951bc8e"}
+{"time":"2024-10-13T20:25:24.4050328+05:30","level":"INFO","msg":"writer: Do: started","stream_id":{"value":"b951bc8e"}}
+{"time":"2024-10-13T20:25:24.4074028+05:30","level":"INFO","msg":"sender: started","stream_id":{"value":"b951bc8e"}}
+{"time":"2024-10-13T20:25:24.4050328+05:30","level":"INFO","msg":"handler: started","stream_id":{"value":"b951bc8e"}}
+{"time":"2024-10-13T20:25:24.9143099+05:30","level":"INFO","msg":"wandb-core","!BADKEY":null}
+{"time":"2024-10-13T20:25:24.9181195+05:30","level":"INFO","msg":"Starting system monitor"}
+{"time":"2024-10-13T20:25:25.5269255+05:30","level":"INFO","msg":"stream: closing","id":"b951bc8e"}
+{"time":"2024-10-13T20:25:25.5269255+05:30","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2024-10-13T20:25:25.6962852+05:30","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2024-10-13T20:25:27.3892499+05:30","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2024-10-13T20:25:27.7299523+05:30","level":"INFO","msg":"handler: closed","stream_id":{"value":"b951bc8e"}}
+{"time":"2024-10-13T20:25:27.7299523+05:30","level":"INFO","msg":"writer: Close: closed","stream_id":{"value":"b951bc8e"}}
+{"time":"2024-10-13T20:25:27.7299523+05:30","level":"INFO","msg":"sender: closed","stream_id":{"value":"b951bc8e"}}
+{"time":"2024-10-13T20:25:27.7311403+05:30","level":"INFO","msg":"stream: closed","id":"b951bc8e"}

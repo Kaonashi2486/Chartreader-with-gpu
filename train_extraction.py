@@ -1,3 +1,4 @@
+from torch.utils.data import DataLoader
 import os
 import json
 import torch
@@ -13,10 +14,21 @@ import errno
 from tqdm import tqdm
 from config import system_configs
 from model_factory import Network
+import sys
+# Add the path to your config.py to sys.path
+sys.path.append(r'C:\Users\saksh\OneDrive\Desktop\stuffs\Chartreader-with-gpu\db\datasets.py')
+# Now you can import system_configs from config.py
 from db.datasets import datasets
 import time
 from torch.multiprocessing import Process, Queue
 import wandb
+#sys.path.append(r'C:\Users\saksh\OneDrive\Desktop\stuffs\Chartreader-with-gpu\config\KPDetection.json')
+import json
+with open(r'C:\Users\saksh\OneDrive\Desktop\stuffs\Chartreader-with-gpu\config\KPDetection.json', "r") as f:
+    configs = json.load(f)
+# # Open and load the JSON file
+# with open('your_file.json', 'r') as file:
+#     data = json.load(file)
 
 torch.backends.cudnn.enabled = True
 torch.backends.cudnn.benchmark = True
@@ -213,8 +225,26 @@ if __name__ == "__main__":
     dataset = system_configs.dataset
     threads = args.threads
     print(f"Using {threads} threads.")
-    training_db = datasets[dataset](train_split, threads=threads)
-    validation_db = datasets[dataset](val_split, threads=threads)
+    training_db = datasets[dataset](split=train_split)
+    validation_db = datasets[dataset](split=val_split)
 
     print("Beginning training process...")
     train(training_db, validation_db, start_iter=args.start_iter)
+
+    # print("Loading all datasets...")
+    # dataset = system_configs.dataset  # Assuming dataset is a string like 'coco' or 'imagenet'
+    # threads = args.threads  # Get number of threads from command-line arguments
+    # print(f"Using {threads} threads.")
+    
+    # # Assume datasets[dataset] returns the correct dataset object
+    # training_db = datasets[dataset](split=train_split,db_config=configs)
+    # validation_db = datasets[dataset](split=val_split,db_config=configs)
+
+    # # Wrap datasets into DataLoader for multi-threaded data loading
+    # # train_loader = DataLoader(training_db, batch_size=32, num_workers=threads, shuffle=True)
+    # # val_loader = DataLoader(validation_db, batch_size=32, num_workers=threads, shuffle=False)
+
+    # # print("Beginning training process...")
+
+    # # # Call train function with DataLoaders
+    # # train(train_loader, val_loader, start_iter=args.start_iter)

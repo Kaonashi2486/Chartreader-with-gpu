@@ -1,0 +1,18 @@
+{"time":"2024-10-13T20:34:30.1369263+05:30","level":"INFO","msg":"using version","core version":"0.18.3"}
+{"time":"2024-10-13T20:34:30.1369263+05:30","level":"INFO","msg":"created symlink","path":"C:\\Users\\saksh\\OneDrive\\Desktop\\stuffs\\Chartreader-with-gpu\\wandb\\run-20241013_203430-dxu5ttyu\\logs\\debug-core.log"}
+{"time":"2024-10-13T20:34:30.1655063+05:30","level":"ERROR","msg":"dialing: google: could not find default credentials. See https://cloud.google.com/docs/authentication/external/set-up-adc for more information"}
+{"time":"2024-10-13T20:34:30.2249565+05:30","level":"INFO","msg":"created new stream","id":"dxu5ttyu"}
+{"time":"2024-10-13T20:34:30.2254645+05:30","level":"INFO","msg":"stream: started","id":"dxu5ttyu"}
+{"time":"2024-10-13T20:34:30.2254645+05:30","level":"INFO","msg":"writer: Do: started","stream_id":{"value":"dxu5ttyu"}}
+{"time":"2024-10-13T20:34:30.2308337+05:30","level":"INFO","msg":"sender: started","stream_id":{"value":"dxu5ttyu"}}
+{"time":"2024-10-13T20:34:30.2259982+05:30","level":"INFO","msg":"handler: started","stream_id":{"value":"dxu5ttyu"}}
+{"time":"2024-10-13T20:34:30.6715456+05:30","level":"INFO","msg":"wandb-core","!BADKEY":null}
+{"time":"2024-10-13T20:34:30.6736615+05:30","level":"INFO","msg":"Starting system monitor"}
+{"time":"2024-10-13T20:34:31.1302977+05:30","level":"INFO","msg":"stream: closing","id":"dxu5ttyu"}
+{"time":"2024-10-13T20:34:31.1302977+05:30","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2024-10-13T20:34:31.1429838+05:30","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2024-10-13T20:34:32.9471648+05:30","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2024-10-13T20:34:33.3484359+05:30","level":"INFO","msg":"handler: closed","stream_id":{"value":"dxu5ttyu"}}
+{"time":"2024-10-13T20:34:33.3484359+05:30","level":"INFO","msg":"writer: Close: closed","stream_id":{"value":"dxu5ttyu"}}
+{"time":"2024-10-13T20:34:33.3484359+05:30","level":"INFO","msg":"sender: closed","stream_id":{"value":"dxu5ttyu"}}
+{"time":"2024-10-13T20:34:33.349495+05:30","level":"INFO","msg":"stream: closed","id":"dxu5ttyu"}

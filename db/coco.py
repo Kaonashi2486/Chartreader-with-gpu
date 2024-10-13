@@ -196,4 +196,9 @@ class Chart(DETECTION):
         coco_eval.evaluate()
         coco_eval.accumulate()
         coco_eval.summarize()
+        print(coco_eval.stats[0], coco_eval.stats[12:])
         return coco_eval.stats[0], coco_eval.stats[12:]
+    
+# coco_dataset=Chart()
+# with open('coco_instance.pkl', 'wb') as file:
+#     pickle.dump(coco_dataset, file)
