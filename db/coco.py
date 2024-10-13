@@ -7,7 +7,20 @@ from tqdm import tqdm
 from pycocotools.coco import COCO
 from pycocotools.cocoeval import COCOeval
 from detection import DETECTION
+# from config import system_configs
+import sys
+# Add the path to your config.py to sys.path
+sys.path.append(r'C:\Users\saksh\OneDrive\Desktop\stuffs\Chartreader-with-gpu')
+# Now you can import system_configs from config.py
 from config import system_configs
+
+# Use system_configs as needed
+# # Import (deserialize) the instance from the file
+# with open('config_instance.pkl', 'rb') as file:
+#     system_configs = pickle.load(file)
+# # Now you can use the loaded instance
+# print(system_configs)
+
 
 class Chart(DETECTION):
     def __init__(self, db_config, split):

@@ -1,5 +1,6 @@
 import os
 import numpy as np
+import pickle
 
 class Config:
     def __init__(self):
@@ -127,3 +128,8 @@ class Config:
 
 # Create an instance of the Config class
 system_configs = Config()
+
+
+# Export (serialize) the instance to a file
+with open('config_instance.pkl', 'wb') as file:
+    pickle.dump(system_configs, file)
