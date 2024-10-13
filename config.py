@@ -9,6 +9,7 @@ from db.datasets import dataset
 class Config:
     def __init__(self):
         self._configs = {}
+        self._configs["dataset_name"] = "Chart"  # Default dataset name
         self._configs["dataset"] =None
         self._configs["testing_function"] = None
         # Training Config
@@ -129,6 +130,23 @@ class Config:
         for key in new:
             if key in self._configs:
                 self._configs[key] = new[key]
+
+    @property
+    def dataset_name(self):
+        return self._configs["dataset_name"]
+
+    @dataset_name.setter
+    def dataset_name(self, value):
+        self._configs["dataset_name"] = value
+
+    def initialize_dataset(self):
+        """
+        Initialize the dataset after the configuration is loaded.
+        This breaks the circular import.
+        """
+        from db.datasets import get_dataset
+        self._configs["dataset"] = get_dataset(self._configs["dataset_name"])
+
 
 # Create an instance of the Config class
 system_configs = Config()
