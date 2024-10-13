@@ -1,6 +1,6 @@
 import torch
 import torch.nn as nn
-from .utils import convolution, residual
+from utils import convolution, residual
 
 # 定义了一个非常简单的神经网络模块，其作用是将两个相同形状的张量相加。这是一种常见的操作，用于合并或融合来自不同路径或层的信息。
 class MergeUp(nn.Module):

@@ -1,5 +1,12 @@
-from .py_utils import kp_detection, DetectionLoss, _neg_loss, residual
-from .model_utils import make_hg_layer, make_pool_layer
+import sys
+# Add the path to your config.py to sys.path
+sys.path.append(r'C:\Users\saksh\OneDrive\Desktop\stuffs\Chartreader-with-gpu\models\py_utils')
+from py_utils import kp_detection, DetectionLoss, _neg_loss, residual
+import sys
+# Add the path to your config.py to sys.path
+sys.path.append(r'C:\Users\saksh\OneDrive\Desktop\stuffs\Chartreader-with-gpu\models')
+from py_utils import convolution
+from model_utils import make_hg_layer, make_pool_layer
 
 class Model(kp_detection):
     def __init__(self):

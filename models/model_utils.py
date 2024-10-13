@@ -1,5 +1,8 @@
+import sys
+# Add the path to your config.py to sys.path
+sys.path.append(r'C:\Users\saksh\OneDrive\Desktop\stuffs\Chartreader-with-gpu\models\py_utils')
+from py_utils import convolution
 import torch.nn as nn
-from .py_utils import convolution
 
 def make_pool_layer() -> nn.Module:
     return nn.Sequential()

@@ -1,5 +1,11 @@
-from .py_utils import kp_group, GroupingLoss, _neg_loss, residual
-from .model_utils import make_hg_layer, make_pool_layer
+import sys
+# Add the path to your config.py to sys.path
+sys.path.append(r'C:\Users\saksh\OneDrive\Desktop\stuffs\Chartreader-with-gpu\models\py_utils')
+from py_utils import kp_group, GroupingLoss, _neg_loss, residual
+import sys
+# Add the path to your config.py to sys.path
+sys.path.append(r'C:\Users\saksh\OneDrive\Desktop\stuffs\Chartreader-with-gpu\models')
+from model_utils import make_hg_layer, make_pool_layer
 
 class Model(kp_group):
     def __init__(self):

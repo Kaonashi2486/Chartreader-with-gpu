@@ -1,12 +1,12 @@
 import torch
 import torch.nn as nn
-from .utils import convolution, residual
-from .utils import make_layer, make_layer_revr
-from .kp_utils import _transpose_and_gather_feat, _decode_detection, _decode_group
-from .kp_utils import _sigmoid, _regr_loss, _neg_loss
-from .kp_utils import make_kp_layer
-from .kp_utils import make_pool_layer, make_unpool_layer
-from .kp_utils import make_merge_layer, make_inter_layer, make_cnv_layer
+from utils import convolution, residual
+from utils import make_layer, make_layer_revr
+from kp_utils import _transpose_and_gather_feat, _decode_detection, _decode_group
+from kp_utils import _sigmoid, _regr_loss, _neg_loss
+from kp_utils import make_kp_layer
+from kp_utils import make_pool_layer, make_unpool_layer
+from kp_utils import make_merge_layer, make_inter_layer, make_cnv_layer
 
 class kp_module(nn.Module):
 # n: 层级数量，决定了递归构建的深度。
