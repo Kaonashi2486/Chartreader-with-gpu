@@ -1,0 +1,13 @@
+Training args: Namespace(cfg_file='KPDetection', start_iter=0, pretrained_model='KPDetection.pkl', threads=1, cache_path='./data/cache/', data_dir='./data')
+Traceback (most recent call last):
+  File "c:\Users\saksh\OneDrive\Desktop\stuffs\Chartreader-with-gpu\train_extraction.py", line 222, in <module>
+    system_configs.initialize_dataset()
+  File "c:\Users\saksh\OneDrive\Desktop\stuffs\Chartreader-with-gpu\config.py", line 149, in initialize_dataset
+    self._configs["dataset"] = get_dataset(self._configs["dataset_name"])
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\saksh\OneDrive\Desktop\stuffs\Chartreader-with-gpu\db\datasets.py", line 19, in get_dataset
+    datasets = load_datasets()
+               ^^^^^^^^^^^^^^^
+  File "c:\Users\saksh\OneDrive\Desktop\stuffs\Chartreader-with-gpu\db\datasets.py", line 12, in load_datasets
+    from coco import Chart
+ModuleNotFoundError: No module named 'coco'

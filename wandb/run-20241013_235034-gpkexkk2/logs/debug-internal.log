@@ -1,0 +1,18 @@
+{"time":"2024-10-13T23:50:34.3311235+05:30","level":"INFO","msg":"using version","core version":"0.18.3"}
+{"time":"2024-10-13T23:50:34.3316934+05:30","level":"INFO","msg":"created symlink","path":"c:\\Users\\saksh\\OneDrive\\Desktop\\stuffs\\Chartreader-with-gpu\\wandb\\run-20241013_235034-gpkexkk2\\logs\\debug-core.log"}
+{"time":"2024-10-13T23:50:34.3861423+05:30","level":"ERROR","msg":"dialing: google: could not find default credentials. See https://cloud.google.com/docs/authentication/external/set-up-adc for more information"}
+{"time":"2024-10-13T23:50:34.5854482+05:30","level":"INFO","msg":"created new stream","id":"gpkexkk2"}
+{"time":"2024-10-13T23:50:34.5854482+05:30","level":"INFO","msg":"stream: started","id":"gpkexkk2"}
+{"time":"2024-10-13T23:50:34.5854482+05:30","level":"INFO","msg":"writer: Do: started","stream_id":{"value":"gpkexkk2"}}
+{"time":"2024-10-13T23:50:34.5854482+05:30","level":"INFO","msg":"sender: started","stream_id":{"value":"gpkexkk2"}}
+{"time":"2024-10-13T23:50:34.5854482+05:30","level":"INFO","msg":"handler: started","stream_id":{"value":"gpkexkk2"}}
+{"time":"2024-10-13T23:50:35.2681798+05:30","level":"INFO","msg":"wandb-core","!BADKEY":null}
+{"time":"2024-10-13T23:50:35.2733505+05:30","level":"INFO","msg":"Starting system monitor"}
+{"time":"2024-10-13T23:50:36.4064147+05:30","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2024-10-13T23:50:36.4044194+05:30","level":"INFO","msg":"stream: closing","id":"gpkexkk2"}
+{"time":"2024-10-13T23:50:36.8480672+05:30","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2024-10-13T23:50:41.0343997+05:30","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2024-10-13T23:50:41.459971+05:30","level":"INFO","msg":"handler: closed","stream_id":{"value":"gpkexkk2"}}
+{"time":"2024-10-13T23:50:41.459971+05:30","level":"INFO","msg":"writer: Close: closed","stream_id":{"value":"gpkexkk2"}}
+{"time":"2024-10-13T23:50:41.459971+05:30","level":"INFO","msg":"sender: closed","stream_id":{"value":"gpkexkk2"}}
+{"time":"2024-10-13T23:50:41.4610564+05:30","level":"INFO","msg":"stream: closed","id":"gpkexkk2"}

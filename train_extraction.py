@@ -18,7 +18,8 @@ import sys
 # Add the path to your config.py to sys.path
 sys.path.append(r'C:\Users\saksh\OneDrive\Desktop\stuffs\Chartreader-with-gpu\db\datasets.py')
 # Now you can import system_configs from config.py
-from db.datasets import datasets
+# from db.datasets import datasets
+from db.datasets import load_datasets
 import time
 from torch.multiprocessing import Process, Queue
 import wandb
@@ -218,6 +219,8 @@ if __name__ == "__main__":
 
     system_configs.update_config(configs["system"])
 
+    system_configs.initialize_dataset()
+    
     train_split = system_configs.train_split
     val_split = system_configs.val_split
 

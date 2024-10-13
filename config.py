@@ -4,7 +4,8 @@ import pickle
 import sys
 # Add the path to your config.py to sys.path
 sys.path.append(r'C:\Users\saksh\OneDrive\Desktop\stuffs\Chartreader-with-gpu\db\datasets')
-from db.datasets import dataset
+# from db.datasets import dataset
+from db.datasets import load_datasets
 
 class Config:
     def __init__(self):
