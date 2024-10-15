@@ -20,6 +20,7 @@ sys.path.append(r'C:\Users\saksh\OneDrive\Desktop\stuffs\Chartreader-with-gpu\db
 # Now you can import system_configs from config.py
 # from db.datasets import datasets
 from db.datasets import load_datasets
+datasets = load_datasets()
 import time
 from torch.multiprocessing import Process, Queue
 import wandb
@@ -62,7 +63,6 @@ def pin_memory(data_queue, pinned_data_queue, sema):
         except SocketError as e:
             if e.errno != errno.ECONNRESET:
                 raise
-            pass
 
 def init_parallel_jobs(dbs, queue, fn, data_aug):
     tasks = [Process(target=prefetch_data, args=(db, queue, fn, data_aug)) for db in dbs]
