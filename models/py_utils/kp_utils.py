@@ -10,33 +10,35 @@ class MergeUp(nn.Module):
 
 def make_merge_layer():
     return MergeUp()
-# 最大池化是一种下采样技术，用于减小特征映射的尺寸。它通过从每个固定大小的窗口中选择最大值，并将其作为新的特征映射的值来工作。这个特定的最大池化层使用2x2的窗口大小和步长2。
-# 参数
-# kernel_size=2：窗口大小为2x2。
-# stride=2：窗口在每个方向上移动的步长为2。
-# 作用
-# 最大池化层的主要作用包括：
-# 减小尺寸：通过减小特征映射的高度和宽度，降低了后续层的计算复杂性。
-# 增加感受野：增加了网络对输入图像中更大区域的感知能力。
-# 不变性：通过选择窗口中的最大值，最大池化提供了对小的平移、旋转和缩放的不变性。
+# Max pooling is a downsampling technique used to reduce the size of feature maps. It works by selecting the maximum value from each fixed-size window and using it as the value for the new feature map. This specific max pooling layer uses a 2x2 window size and a stride of 2.
+# Parameters
+# kernel_size=2: The window size is 2x2.
+# stride=2: The step size for the window moving in each direction is 2.
+# Functions
+# The main functions of the max pooling layer include:
+# Reducing Size: By decreasing the height and width of the feature maps, it reduces the computational complexity for subsequent layers.
+# Increasing Receptive Field: It enhances the network's ability to perceive larger areas in the input image.
+# Invariance: By selecting the maximum value within the window, max pooling provides invariance to small translations, rotations, and scalings.
+
 def make_pool_layer():
     return nn.MaxPool2d(kernel_size=2, stride=2)
+# Upsampling is a technique used to increase the size of feature maps. It is employed to convert low-resolution feature maps into high-resolution ones, allowing for the capture of finer details in subsequent layers. This specific upsampling layer uses a scale factor of 2, meaning it doubles the height and width of the input feature map.
 
-# 上采样是一种增加特征映射尺寸的技术。它被用于将低分辨率特征映射转换为高分辨率，从而能够在后续层中捕获更精细的信息。这个特定的上采样层使用了比例因子2，这意味着它将输入特征映射的高度和宽度放大2倍。
+# Parameters
+# scale_factor=2: The scaling factor is 2, which means the size is doubled in each direction.
+# Functions
+# The main functions of the upsampling layer include:
 
-# 参数
-# scale_factor=2：放大因子为2，意味着在每个方向上都将尺寸加倍。
-# 作用
-# 上采样层的主要作用包括：
+# Increasing Size: By doubling the height and width of the feature maps, it provides higher resolution input for subsequent layers.
+# Restoring Details: After a series of downsampling operations, upsampling can help recover some of the lost spatial details.
+# Multi-Scale Feature Fusion: Upsampling is often used in deep learning for multi-scale feature fusion, allowing the network to capture image features at different resolutions simultaneously.
 
-# 增加尺寸：通过将特征映射的高度和宽度增加一倍，为后续层提供更高分辨率的输入。
-# 恢复细节：在一系列下采样操作后，上采样可以帮助恢复一些丢失的空间细节。
-# 多尺度特征组合：上采样常用于深度学习中的多尺度特征组合，允许网络同时捕获不同分辨率下的图像特征。
 def make_unpool_layer(dim):
     return nn.Upsample(scale_factor=2)
 
-# 定义了一个关键点层，用于从给定的输入特征中预测关键点
-# 接受三个参数：cnv_dim（输入维度）、curr_dim（中间层的维度）和out_dim（输出维度），并返回一个包含两个卷积层的顺序模块。
+# Defines a keypoint layer used to predict keypoints from the given input features.
+# It accepts three parameters: cnv_dim (input dimension), curr_dim (dimension of the intermediate layer), and out_dim (output dimension), and returns a sequential module containing two convolutional layers.
+
 def make_kp_layer(cnv_dim, curr_dim, out_dim):
     return nn.Sequential(
         # 特征转换：通过3x3卷积层，对输入特征进行空间转换。
@@ -52,11 +54,11 @@ def make_inter_layer(dim):
 def make_cnv_layer(inp_dim, out_dim):
     return convolution(3, inp_dim, out_dim)
 
-# 根据索引收集特征张量中的特定元素。如果提供了掩码，它还会根据掩码进行筛选
-# 输入参数:
-# feat: 这是一个特征张量，通常具有形状 (batch_size, num_features, dim)，其中 dim 是特征的维数。
-# ind: 这是一个索引张量，通常具有形状 (batch_size, num_indices)，用于从特征张量中选择特定的特征。
-# mask (可选): 这是一个可选的掩码张量，用于进一步筛选收集的特征。
+# Collect specific elements from the feature tensor based on indices. If a mask is provided, it will also filter according to the mask.
+# Input parameters:
+# feat: This is a feature tensor, typically with a shape of (batch_size, num_features, dim), where dim is the dimension of the features.
+# ind: This is an index tensor, typically with a shape of (batch_size, num_indices), used to select specific features from the feature tensor.
+
 def _gather_feat(feat, ind, mask=None):
     # 获取特征张量的第三个维度的大小，即特征的维数，并将其存储在变量 dim 中。
     #print("Gathering feat")
@@ -76,15 +78,16 @@ def _gather_feat(feat, ind, mask=None):
     if min_val < 0 or max_val > max_index_feat:
         print(f"Index out of bounds! Min index: {min_val}, Max index: {max_val}, Allowed index range: [0, {max_index_feat}]")
     #print(f"ind = {ind}") 
-    # 沿着第一个维度收集特征。在这里，ind 用于从 feat 中选择特定的特征。结果存储在 feat 中。
+    # Collect features along the first dimension. Here, ind is used to select specific features from feat. The result is stored in feat.
     #a = torch.tensor([[1, 2], [3, 4], [5, 6]])
     #index = torch.tensor([[0, 0], [2, 1]])
     #output = torch.gather(a, 0, index)
-    # 我们用 dim=0 作为参数，这意味着我们在行维度（第 0 维）上进行 gather 操作。
-    # 对于输出张量的第一行，我们使用 index 的第一行 [0, 0]。这意味着我们从 a 的第 0 行中取出每一列的元素。也就是取 a[0][0] 和 a[0][1]，它们分别是 1 和 2。
-    # 对于输出张量的第二行，我们使用 index 的第二行 [2, 1]。这意味着：
-    # 第一个元素是 a 的第三行第一列的元素，即 a[2][0] = 5。
-    # 第二个元素是 a 的第二行第二列的元素，即 a[1][1] = 4。
+    # We use dim=0 as a parameter, which means we perform the gather operation along the row dimension (dimension 0).
+    # For the first row of the output tensor, we use the first row of index [0, 0]. This means we take elements from the 0th row of a for each column. Specifically, we take a[0][0] and a[0][1], which are 1 and 2, respectively.
+    # For the second row of the output tensor, we use the second row of index [2, 1]. This means:
+    # The first element is the element from the third row and first column of a, which is a[2][0] = 5.
+    # The second element is the element from the second row and second column of a, which is a[1][1] = 4.
+
     feat = feat.gather(1, ind)
     if mask is not None:
         # 如果提供了掩码 (mask)，则通过 unsqueeze 和 expand_as 调整其形状以匹配 feat。

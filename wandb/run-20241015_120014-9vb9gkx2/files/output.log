@@ -1,0 +1,8 @@
+Training args: Namespace(cfg_file='KPDetection', start_iter=0, pretrained_model='KPDetection.pkl', threads=1, cache_path='./data/cache/', data_dir='./data')
+Loading all datasets...
+Using 1 threads.
+Traceback (most recent call last):
+  File "c:\Users\saksh\OneDrive\Desktop\stuffs\Chartreader-with-gpu\train_extraction.py", line 231, in <module>
+    training_db = datasets[dataset](split=train_split)
+                  ~~~~~~~~^^^^^^^^^
+KeyError: <class 'coco.Chart'>

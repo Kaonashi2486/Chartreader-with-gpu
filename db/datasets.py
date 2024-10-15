@@ -9,6 +9,8 @@
 # }
 
 def load_datasets():
+    import sys
+    sys.path.append(r'C:\Users\saksh\OneDrive\Desktop\stuffs\Chartreader-with-gpu\db')
     from coco import Chart
     return {
         "Chart": Chart

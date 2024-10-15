@@ -9,15 +9,16 @@ from kp_utils import make_pool_layer, make_unpool_layer
 from kp_utils import make_merge_layer, make_inter_layer, make_cnv_layer
 
 class kp_module(nn.Module):
-# n: 层级数量，决定了递归构建的深度。
-# dims: 一个列表，包括每个层级的维度。
-# modules: 一个列表，包括每个层级的模块数量。
-# layer: 用于构建残差块的层类型。
-# make_xxx_layer: 一系列的函数，用于构建不同的层类型。
-# 作用
-# 多尺度特征提取: 通过上采样和下采样结合残差连接，kp_module能够捕捉多尺度的特征。
-# 递归结构: 通过递归构建，可以灵活地创建不同深度的结构。
-# 特征融合: 合并层允许来自不同路径和尺度的特征进行融合。
+# n: The number of layers, determining the depth of the recursive construction.
+# dims: A list that includes the dimension of each layer.
+# modules: A list that includes the number of modules at each layer.
+# layer: The type of layer used to construct the residual block.
+# make_xxx_layer: A series of functions used to build different types of layers.
+# Functions
+# Multi-Scale Feature Extraction: By combining upsampling and downsampling with residual connections, the kp_module can capture multi-scale features.
+# Recursive Structure: The recursive construction allows for flexible creation of structures at different depths.
+# Feature Fusion: Merging layers enable the fusion of features from different paths and scales.
+
     def __init__(
         self, n, dims, modules, layer=residual,
         make_up_layer=make_layer, make_low_layer=make_layer,
