@@ -9,13 +9,13 @@ import matplotlib.pyplot as plt
 import os
 from img_utils import color_jittering_, lighting_
 
-# 修剪检测框，确保它们完全位于图像的边界内，并且具有正宽度和高度
+# Clip detection boxes to ensure they are completely within the image boundaries and have positive width and height
 def _clip_detections(image, detections):
     detections = detections.copy()
     height, width = image.shape[0:2]
-    # 使用 NumPy 的 clip 函数将检测框的 x 坐标（即索引 0 和 2 的值）限制在图像宽度的范围内。
+    # Use NumPy's clip function to limit the x coordinates (i.e., values at indices 0 and 2) of the detection boxes to the image width.
     detections[:, 0:detections.shape[1]:2] = np.clip(detections[:, 0:detections.shape[1]:2], 0, width)
-    # 使用 NumPy 的 clip 函数将检测框的 y 坐标（即索引 1 和 3 的值）限制在图像高度的范围内。
+    # Use NumPy's clip function to limit the y coordinates (i.e., values at indices 1 and 3) of the detection boxes to the image height.
     detections[:, 1:detections.shape[1]:2] = np.clip(detections[:, 1:detections.shape[1]:2], 0, height)
     return detections
 
@@ -88,51 +88,51 @@ def random_crop(image, detections, random_scales, view_size, border=64):
 
     return cropped_image, cropped_detections, scale
 
-# 参数：
-# shape: 高斯滤波器的形状（高和宽）。
-# sigma: 高斯函数的标准偏差，用于控制滤波器的宽度。
+# Parameters:
+# shape: The shape of the Gaussian filter (height and width).
+# sigma: The standard deviation of the Gaussian function, used to control the width of the filter.
 def gaussian_2d(shape, sigma=1):
-    # 对于给定的形状，这将确定滤波器的中心。
+    # For a given shape, this will determine the center of the filter.
     m, n = [(ss - 1.) / 2. for ss in shape]
-    # 使用 np.ogrid 创建一个网格，其范围从负中心坐标到正中心坐标。这将产生一个表示从中心到边缘的距离的网格。
+    # Use np.ogrid to create a grid ranging from negative center coordinates to positive center coordinates. This will produce a grid representing the distance from the center to the edges.
     y, x = np.ogrid[-m:m+1,-n:n+1]
-    # 将滤波器中非常小的值设置为0。这可以减少不必要的计算，并确保滤波器的有效范围。
+    # Set very small values in the filter to 0. This can reduce unnecessary calculations and ensure the effective range of the filter.
     h = np.exp(-(x * x + y * y) / (2 * sigma * sigma))
     h[h < np.finfo(h.dtype).eps * h.max()] = 0
     return h
 
-# 参数：
-# heatmap: 用于绘制高斯分布的二维数组（热图）。
-# center: 高斯分布的中心坐标（x, y）。
-# radius: 高斯分布的半径。
-# k: 一个可选的乘法因子，用于调整高斯分布的幅度。
+# Parameters:
+# heatmap: A 2D array (heatmap) for drawing the Gaussian distribution.
+# center: The center coordinates (x, y) of the Gaussian distribution.
+# radius: The radius of the Gaussian distribution.
+# k: An optional multiplication factor to adjust the amplitude of the Gaussian distribution.
 def draw_gaussian(heatmap, center, radius, k=1):
-    # 计算高斯分布的直径，它等于半径的两倍加1
+    # Calculate the diameter of the Gaussian distribution, which is equal to twice the radius plus one.
     diameter = 2 * radius + 1
-    # 调用先前定义的 gaussian_2d 函数来生成一个二维高斯滤波器。
+    # Call the previously defined gaussian_2d function to generate a 2D Gaussian filter.
     gaussian = gaussian_2d((diameter, diameter), sigma=diameter / 6)
-    # 解压中心坐标到 x 和 y 变量。
+    # Unpack the center coordinates into x and y variables.
     x, y = center
-    # 获取热图的高度和宽度。
+    # Get the height and width of the heatmap.
     height, width = heatmap.shape[0:2]
-    # 通过比较中心坐标和半径与热图的宽度和高度来确定边界。这确保了高斯分布不会超出热图的边界。
+    # Determine the boundaries by comparing the center coordinates and radius with the width and height of the heatmap. This ensures that the Gaussian distribution does not exceed the boundaries of the heatmap.
     left, right = min(x, radius), min(width - x, radius + 1)
     top, bottom = min(y, radius), min(height - y, radius + 1)
-    # 从热图中提取要修改的区域。
+    # Extract the region to be modified from the heatmap.
     masked_heatmap  = heatmap[y - top:y + bottom, x - left:x + right]
-    # 从高斯滤波器中提取与热图相对应的部分。
+    # Extract the corresponding part from the Gaussian filter.
     masked_gaussian = gaussian[radius - top:radius + bottom, radius - left:radius + right]
-    #  将高斯滤波器应用于热图的选定区域。使用 np.maximum 确保新值不会小于原始热图中的值，并通过乘以因子 k 来调整高斯分布的强度。
+    # Apply the Gaussian filter to the selected region of the heatmap. Use np.maximum to ensure that the new values are not less than the original values in the heatmap, and adjust the intensity of the Gaussian distribution by multiplying by the factor k.
     np.maximum(masked_heatmap, masked_gaussian * k, out=masked_heatmap)
 
-# 计算高斯分布的半径，以便在检测框中有一个最小的重叠区域。
-# det_size: 检测框的大小，表示为 (height, width)。
-# min_overlap: 高斯分布与检测框的最小重叠区域。
+# Calculate the radius of the Gaussian distribution to ensure a minimum overlap area within the detection box.
+# det_size: The size of the detection box, represented as (height, width).
+# min_overlap: The minimum overlap area between the Gaussian distribution and the detection box.
 def gaussian_radius(det_size, min_overlap):
-    # 从检测框大小中提取高度和宽度。
+    # Extract the height and width from the detection box size.
     height, width = det_size
-    # 高斯半径的计算可以通过求解三个不同的二次方程来完成。每个方程由系数 a, b, 和 c 定义，以及与检测框大小和最小重叠区域有关的参数。
-    # 通过使用二次方程的通解公式，可以计算出每个方程的解。
+    # The calculation of the Gaussian radius can be done by solving three different quadratic equations. Each equation is defined by coefficients a, b, and c, and parameters related to the detection box size and minimum overlap area.
+    # By using the general solution formula of the quadratic equation, the solution of each equation can be calculated.
     a1  = 1
     b1  = (height + width)
     c1  = width * height * (1 - min_overlap) / (1 + min_overlap)
@@ -150,7 +150,7 @@ def gaussian_radius(det_size, min_overlap):
     c3  = (min_overlap - 1) * width * height
     sq3 = np.sqrt(b3 ** 2 - 4 * a3 * c3)
     r3  = (b3 + sq3) / (2 * a3)
-    # 返回三个解中的最小值作为高斯半径。
+    # Return the minimum value among the three solutions as the Gaussian radius.
     return min(r1, r2, r3)
 
 def save_heatmaps(key_heatmaps, name, save_dir='heatmaps'):
@@ -162,7 +162,7 @@ def save_heatmaps(key_heatmaps, name, save_dir='heatmaps'):
     - save_dir: Directory where to save the heatmap images.
     """
 
-    # 创建保存热图的目录，如果不存在的话
+    # Create the directory to save the heatmaps if it does not exist
     if not os.path.exists(save_dir):
         os.makedirs(save_dir)
 
@@ -170,7 +170,7 @@ def save_heatmaps(key_heatmaps, name, save_dir='heatmaps'):
 
     for b in range(batch_size):
         for c in range(categories):
-            # 提取单个热图
+            # Extract a single heatmap
             heatmap = key_heatmaps[b, c, :, :]
 
             plt.imshow(heatmap, cmap='hot', interpolation='nearest')
@@ -180,29 +180,29 @@ def save_heatmaps(key_heatmaps, name, save_dir='heatmaps'):
             plt.xlabel('X-axis')
             plt.ylabel('Y-axis')
 
-            # 保存热图为图片
+            # Save the heatmap as an image
             plt.savefig(os.path.join(save_dir, f'{b+1}_category_{c}_{name}_heatmap.png'))
 
-            # 清除当前图形，以便绘制下一个
+            # Clear the current figure to draw the next one
             plt.clf()
 
 def bad_p(x, y, output_size):
-    # 检查坐标是否位于输出大小的有效范围之外
-    # 通过减去一个非常小的值，该函数确保坐标不会正好位于边界上。
+    # Check if the coordinates are out of the valid range of the output size
+    # By subtracting a very small value, this function ensures that the coordinates are not exactly on the boundary.
     return x == 0 or y == 0 or x >= (output_size[1]-1e-2) or y >= (output_size[0]-1e-2)
 
-# 计算三个点 a, b, 和 c 所构成的三角形的中心位置
+# Calculate the center position of the triangle formed by three points a, b, and c
 def get_center(a, b, c):
-    # 计算从点 a 到点 c 的向量
+    # Calculate the vector from point a to point c
     ca = [c[0]-a[0], c[1]-a[1]]
-    # 计算从点 b 到点 c 的向量
+    # Calculate the vector from point b to point c
     cb = [c[0]-b[0], c[1]-b[1]]
-    # 叉积 ca*cb 的符号表示向量 ca 和 cb 之间的角度的方向
+    # The sign of the cross product ca*cb indicates the direction of the angle between vectors ca and cb
     if ca[0]*cb[1]-ca[1]*cb[0] >= 0:
-        # 如果角度为非负值，返回三角形的重心，即三个顶点的坐标平均值
+        # If the angle is non-negative, return the centroid of the triangle, which is the average of the coordinates of the three vertices
         return (a[0]+b[0]+c[0])/3., (a[1]+b[1]+c[1])/3.
     else:
-        # 否则，返回另一个点
+        # Otherwise, return another point
         return 2*c[0]-(a[0]+b[0]+c[0])/3., 2*c[1]-(a[1]+b[1]+c[1])/3.
 
 def sample_data(db, k_ind):
@@ -224,29 +224,29 @@ def sample_data(db, k_ind):
 
      # allocating memory
     images          = np.zeros((batch_size, 3, input_size[0], input_size[1]), dtype=np.float32)
-    # 分配两个张量，用于存储关键点和中心点的热图
-    # 热图的尺寸：通常与输入图像的尺寸不同，因为网络中的卷积和池化操作会改变特征图的大小。在你提供的代码中，output_size（例如 [128, 128]）指定了热图的尺寸。
-    # 多类别问题：在多目标检测或多关键点检测任务中，通常为每个类别生成一个独立的热图。在你的代码中，categories 代表类别数，batch_size 是批量大小。
+    # Allocate two tensors to store the heatmaps of keypoints and centers
+    # The size of the heatmap: usually different from the size of the input image, because the convolution and pooling operations in the network will change the size of the feature map. In your provided code, output_size (e.g., [128, 128]) specifies the size of the heatmap.
+    # Multi-category problem: In multi-object detection or multi-keypoint detection tasks, an independent heatmap is usually generated for each category. In your code, categories represent the number of categories, and batch_size is the batch size.
     center_heatmaps = np.zeros((batch_size, categories, output_size[0], output_size[1]), dtype=np.float32)
     key_heatmaps    = np.zeros((batch_size, categories, output_size[0], output_size[1]), dtype=np.float32)
-    # 分配两个张量，用于存储关键点和中心点的回归目标
+    # Allocate two tensors to store the regression targets of keypoints and centers
     center_regrs    = np.zeros((batch_size, max_tag_len + 1, 2), dtype=np.float32)
     key_regrs       = np.zeros((batch_size, max_tag_len + 1, 2), dtype=np.float32)
-    # 分配两个张量，用于存储关键点和中心点的坐标信息
+    # Allocate two tensors to store the coordinate information of keypoints and centers
     center_tags     = np.zeros((batch_size, max_tag_len + 1), dtype=np.int64) # location values
     key_tags        = np.zeros((batch_size, max_tag_len + 1), dtype=np.int64) # location values
-    # 分配两个布尔张量，用于存储关键点和中心点的掩码
+    # Allocate two boolean tensors to store the masks of keypoints and centers
     key_masks       = np.zeros((batch_size, max_tag_len + 1), dtype=bool)
     center_masks    = np.zeros((batch_size, max_tag_len + 1), dtype=bool)
-    # 分配两个一维张量，用于存储每个样本的标签长度
+    # Allocate two one-dimensional tensors to store the label length of each sample
     tag_lens_keys   = np.zeros((batch_size, ), dtype=np.int32)
     tag_lens_cens   = np.zeros((batch_size, ), dtype=np.int32)
-    # 分配一个张量，用于存储分组目标
+    # Allocate a tensor to store the grouping targets
     group_target    = np.zeros((batch_size, max_tag_len + 1, max_tag_len + 1), dtype=np.int64)
         
     db_size = db.db_inds.size
-    # 在一个批次中选择一个有效的数据点（或多个数据点）。它首先会随机洗牌数据库（如果满足条件），然后使用 while 循环来找到一个有效的数据点
-    # k_ind 是一个控制变量，用于追踪我们当前在数据库中的哪个位置
+    # Select a valid data point (or multiple data points) in a batch. It will first randomly shuffle the database (if the condition is met), and then use a while loop to find a valid data point
+    # k_ind is a control variable used to track which position we are currently in the database
     for b_ind in range(batch_size):
         #print(f"b_ind = {b_ind}")
         if k_ind == 0:
@@ -475,7 +475,7 @@ def sample_data(db, k_ind):
                 key_masks[b_ind, :tag_lens_keys[b_ind]] = 1
             else:
                 # bar
-                # 提取检测框的左上角和右下角坐标，以及中心点坐标。
+                # Extract the coordinates of the top-left and bottom-right corners of the detection box, as well as the coordinates of the center point
                 #print(f"bind:{b_ind}")
                 #print(f"category:{category}")
                 xk1, yk1 = detection[0], detection[1] # top left point	
@@ -483,14 +483,14 @@ def sample_data(db, k_ind):
                 #print(xk1, yk1)
                 #print(xk2, yk2)
                 xce, yce = (xk1 + xk2) / 2, (yk1 + yk2) / 2 # center point	
-                # 使用宽度和高度比率调整检测框的坐标。
+               # Adjust the coordinates of the detection box using width and height ratios.
                 fxk1 = (xk1 * width_ratio)	
                 fyk1 = (yk1 * height_ratio)	
                 fxk2 = (xk2 * width_ratio)	
                 fyk2 = (yk2 * height_ratio)	
                 fxce = (xce * width_ratio)	
                 fyce = (yce * height_ratio)	
-                # 将调整后的坐标转换为整数。
+                #Convert the adjusted coordinates to integers.
                 xk1 = int(fxk1)	
                 yk1 = int(fyk1)	
                 xk2 = int(fxk2)	
@@ -503,7 +503,7 @@ def sample_data(db, k_ind):
                 yk2 = min(yk2, key_heatmaps.shape[2] - 1)
                 xce = min(xce, key_heatmaps.shape[3] - 1)
                 yce = min(yce, key_heatmaps.shape[2] - 1)
-                # 如果使用高斯 bump，则通过调用 draw_gaussian 函数来绘制中心热图和关键热图。否则，直接在热图上设置值。
+                # If using Gaussian bump, draw the center heatmap and keypoint heatmap by calling the draw_gaussian function. Otherwise, set the values directly on the heatmap.
                 if gaussian_bump:	
                     width  = detection[2] - detection[0]	
                     height = detection[3] - detection[1]	
@@ -527,14 +527,14 @@ def sample_data(db, k_ind):
                 #print(xk1, yk1)
                 #print(xk2, yk2)
                 #print(yce, xce)
-                # 为回归任务计算关键点和中心点的偏移。
+                # Calculate the offset of keypoints and center points for the regression task.
                 tag_ind = tag_lens_keys[b_ind]	
                 #print(f"b_ind: {b_ind}")
                 #print(f"tag_ind: {tag_ind}")
                 key_regrs[b_ind, tag_ind, :] = [fxk1 - xk1, fyk1 - yk1]	
                 key_regrs[b_ind, tag_ind+1, :] = [fxk2 - xk2, fyk2 - yk2]	
                 center_regrs[b_ind, tag_ind//2, :] = [fxce - xce, fyce - yce]	
-                # 计算关键标签和中心标签。
+               # Calculate keypoint labels and center labels.
                 key_tags[b_ind, tag_ind] = yk1 * output_size[1] + xk1	
                 key_tags[b_ind, tag_ind+1] = yk2 * output_size[1] + xk2	
                 center_tags[b_ind, tag_ind//2] = yce * output_size[1] + xce	
@@ -543,7 +543,7 @@ def sample_data(db, k_ind):
                 keys_tag_len = tag_lens_keys[b_ind]	
                 cens_tag_len = keys_tag_len // 2	
                 group_target[b_ind, cens_tag_len, keys_tag_len: keys_tag_len + 2] = 1	
-                # 更新标签长度，并检查是否超出最大长度。
+                # Update the label length and check if it exceeds the maximum length.
                 tag_lens_keys[b_ind] += 2
                 if tag_lens_keys[b_ind] >= max_tag_len-2:	
                     print("Too many targets, skip!")
@@ -551,7 +551,7 @@ def sample_data(db, k_ind):
                     print(image_file)
                     break	
 
-                # 生成掩码，设置关键掩码和中心掩码，并记录中心标签长度。
+                #Generate masks, set keypoint and center masks, and record the center label length.
                 tag_len = tag_lens_keys[b_ind]
                 key_masks[b_ind, :tag_len] = 1	
                 center_masks[b_ind, :tag_len//2] = 1	
@@ -577,7 +577,7 @@ def sample_data(db, k_ind):
     group_target    = torch.from_numpy(group_target)
     tag_lens_cens   = torch.from_numpy(tag_lens_cens)
     tag_lens_keys   = torch.from_numpy(tag_lens_keys)
-    # xs 通常用来表示输入数据，而 ys 用来表示相应的标签或目标数据。
+    #xs is typically used to represent input data, while ys represents the corresponding labels or target data.
     return {
         "xs": [images, key_tags, center_tags, tag_lens_keys, tag_lens_cens],
         "ys": [key_heatmaps, center_heatmaps, key_masks, center_masks, key_regrs, center_regrs, group_target, tag_lens_cens, tag_lens_keys]
